@@ -1,11 +1,11 @@
 import React from "react";
-// import FamilyChart from "./FamilyChart";
-import FamilyTree from "./FamilyChartActions";
+import FamilyTree from "./app/familyChart/FamilyChartActions";
+import 'materialize-css/dist/css/materialize.min.css'
+
 
 export default function App() {
   return (
     <div className="App">
-      {/* <FamilyChart /> */}
       <FamilyTree/>
     </div>
   );

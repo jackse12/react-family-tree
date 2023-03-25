@@ -1,3 +1,6 @@
+
+
+
 export function Form({datum, rel_datum, store, rel_type, card_edit, postSubmit, card_display, edit: {el, open, close}}) {
   setupFromHtml();
   open();
