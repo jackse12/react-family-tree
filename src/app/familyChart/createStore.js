@@ -1,5 +1,7 @@
 import CalculateTree from "./CalculateTree/CalculateTree.js"
 import {createTreeDataWithMainNode} from "./handlers/newPerson.js"
+import dataJson from './data.json';
+const fs = require('fs');
 
 export default function createStore(initial_state) {
   let onUpdate;
@@ -21,7 +23,8 @@ export default function createStore(initial_state) {
 
 
   function calcTree() {
-    console.log(state.data)
+    console.log("This is it",state.data)
+    localStorage.setItem('treeData', JSON.stringify(state.data));
 
     return CalculateTree({
       data_stash: state.data, main_id: state.main_id,

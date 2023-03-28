@@ -7,7 +7,7 @@ import axios from 'axios';
 import dataJson from './data.json';
 import * as d3 from "d3";
 
-// import createStore from "./createStore";
+import createStore from "./createStore";
 
 
 
@@ -27,6 +27,19 @@ export default class FamilyTree extends React.Component {
 
   componentDidMount() {
     if (!this.contRef.current) return;
+
+    let dataTree = dataJson
+    let localTree = localStorage.getItem('treeData')
+    if (localTree === null) {
+      
+      console.log("NOt retain")
+      localStorage.setItem('treeData', JSON.stringify(dataJson));
+    } else {
+      console.log("reteain")
+      dataTree = localStorage.getItem('treeData');
+      dataTree = JSON.parse(dataTree)
+    }
+
     initProcess()
     // axios.get('/src/data.json')
     //   .then(response =>  console.log("response", response))
@@ -48,9 +61,9 @@ export default class FamilyTree extends React.Component {
       const card_dim = { w: 220, h: 70, text_x: 75, text_y: 15, img_w: 60, img_h: 60, img_x: 5, img_y: 5 }
       const card_display = cardDisplay();
       const card_edit = cardEditParams();
-      const store = f3.createStore({
-      // const store = createStore({
-        data: dataJson,
+      // const store = f3.createStore({
+      const store = createStore({
+        data: dataTree,
         card_display: [d => d.data.label || '', d => d.data.desc || ''],
         mini_tree: true,
         hide_rels: true,
@@ -116,7 +129,10 @@ export default class FamilyTree extends React.Component {
 
       function cardEditForm(props) {
         const postSubmit = props.postSubmit;
-        props.postSubmit = (ps_props) => { postSubmit(ps_props) }
+        props.postSubmit = (ps_props) => {
+          postSubmit(ps_props)
+          console.log("ps_props", postSubmit)
+        }
         const el = document.querySelector('#form_modal'),
           modal = M.Modal.getInstance(el),
           edit = { el, open: () => modal.open(), close: () => modal.close() }
@@ -147,19 +163,19 @@ export default class FamilyTree extends React.Component {
       modal.setAttribute("class", "modal");
       M.Modal.init(modal);
 
-  
-     
+
+
     }
   }
 
   handleF3() {
     const chartElement = document.getElementById('chart');
 
-// Get the chart instance from the element reference
-const chartInstance = chartElement.chartInstance;
+    // Get the chart instance from the element reference
+    const chartInstance = chartElement.chartInstance;
 
-// Get the current data state of the chart
-// const dataState = chartInstance.getData();
+    // Get the current data state of the chart
+    // const dataState = chartInstance.getData();
 
 
   }
@@ -174,19 +190,19 @@ const chartInstance = chartElement.chartInstance;
       <div className="row">
         <div className="col s12 m9" ref={this.chartRef}>
           <div className="f3" id="chart" ref={this.contRef} style={{ position: 'relative' }}>
-           
+
           </div>
-         
+
         </div>
         <div className="col s12 m3">
           <div id="edit_cont" className="card p5"></div>
         </div>
       </div>
       <div id="form_data" className="modal">
-     
+
       </div>
-      <button onClick={this.handleF3}>get data</button>
-      
+    
+
     </div>
   }
 }

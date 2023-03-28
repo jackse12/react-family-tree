@@ -1,10 +1,10 @@
-
-
+import _ from "lodash";
 
 export function Form({datum, rel_datum, store, rel_type, card_edit, postSubmit, card_display, edit: {el, open, close}}) {
   setupFromHtml();
   open();
-console.log("store", store)
+
+
   function setupFromHtml() {
     el.innerHTML = (`
       <div class="modal-content">
@@ -50,11 +50,10 @@ console.log("store", store)
   }
 
   function submitFormChanges(e) {
-    console.log("update")
+   
     e.preventDefault()
     const form_data = new FormData(e.target)
     form_data.forEach((v, k) => datum.data[k] = v)
-
     close()
     postSubmit()
     

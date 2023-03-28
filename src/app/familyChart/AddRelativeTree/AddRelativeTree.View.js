@@ -112,7 +112,9 @@ export default function View(tree, {store, data_stash, cont, datum, card_dim, ca
           addNewPerson({data_stash, datum: new_datum})
           handleRelsOfNewDatum({datum: new_datum, data_stash, rel_datum, rel_type})
           store.update.tree();
+          console.log("postSubmit 1")
         }
+        console.log("datum", new_datum)
       cardEditForm({datum: new_datum, rel_datum, rel_type, postSubmit, store})
       return true
     }

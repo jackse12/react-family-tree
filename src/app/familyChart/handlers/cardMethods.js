@@ -12,12 +12,26 @@ export function cardChangeMain(store, {card, d}) {
 export function cardEdit(store, {card, d, cardEditForm}) {
   const datum = d.data,
     postSubmit = (props) => {
+      console.log("postSubmit 2")
       if (datum.to_add) moveToAddToAdded(datum, store.getData())
       if (props && props.delete) {
         if (datum.main) store.update.mainId(null)
         deletePerson(datum, store.getData())
       }
       store.update.tree()
+      // localStorage.setItem('datum', datum);
+      // if (!localStorage.getItem('treeData')) {
+      //   let dataTree = localStorage.getItem('treeData');
+      
+      //   dataTree = dataTree?.map((item)=>{
+      //     let newItem = 
+
+
+      //     return 
+      //   })
+
+      
+      // }
 
       console.log("store.getData()")
     }
