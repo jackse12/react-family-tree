@@ -5,15 +5,28 @@ import M from "materialize-css";
 import { Form } from "./view/elements/Form.js"
 import axios from 'axios';
 import dataJson from './data.json';
+import * as d3 from "d3";
+
+// import createStore from "./createStore";
 
 
 
 export default class FamilyTree extends React.Component {
-  contRef = React.createRef();
+
+  constructor(props) {
+    super(props);
+    this.chartRef = React.createRef();
+    this.contRef = React.createRef();
+    this.handleF3 = this.handleF3.bind(this);
+    this.state = {
+      chartState: null,
+    };
+  }
+
+  // contRef = React.createRef();
 
   componentDidMount() {
     if (!this.contRef.current) return;
-    console.log("dataJson", dataJson)
     initProcess()
     // axios.get('/src/data.json')
     //   .then(response =>  console.log("response", response))
@@ -30,12 +43,13 @@ export default class FamilyTree extends React.Component {
     function initProcess() {
       const cont = document.querySelector("#chart")
 
-      
+
 
       const card_dim = { w: 220, h: 70, text_x: 75, text_y: 15, img_w: 60, img_h: 60, img_x: 5, img_y: 5 }
       const card_display = cardDisplay();
       const card_edit = cardEditParams();
       const store = f3.createStore({
+      // const store = createStore({
         data: dataJson,
         card_display: [d => d.data.label || '', d => d.data.desc || ''],
         mini_tree: true,
@@ -76,29 +90,29 @@ export default class FamilyTree extends React.Component {
       view.setCard(Card);
       store.setOnUpdate((props) => view.update(props || {}));
       store.update.tree({ initial: true });
+      console.log("store", store)
+      // function data() {
+      //   return [
+      //     {
+      //       id: "0",
+      //       rels: {
+      //         spouses: null,
+      //         father: null,
+      //         mother: null,
+      //         children: null
+      //       },
+      //       data: {
+      //         "first name": "Agnus",
+      //         "last name": "",
+      //         birthday: "1970",
+      //         avatar:
+      //           "https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg",
+      //         gender: "M"
+      //       }
+      //     },
 
-      function data() {
-        return [
-          {
-            id: "0",
-            rels: {
-              spouses: null,
-              father: null,
-              mother: null,
-              children: null
-            },
-            data: {
-              "first name": "Agnus",
-              "last name": "",
-              birthday: "1970",
-              avatar:
-                "https://static8.depositphotos.com/1009634/988/v/950/depositphotos_9883921-stock-illustration-no-user-profile-picture.jpg",
-              gender: "M"
-            }
-          },
-
-        ];
-      }
+      //   ];
+      // }
 
       function cardEditForm(props) {
         const postSubmit = props.postSubmit;
@@ -132,27 +146,47 @@ export default class FamilyTree extends React.Component {
       modal.setAttribute("id", "form_modal");
       modal.setAttribute("class", "modal");
       M.Modal.init(modal);
+
+  
+     
     }
   }
 
+  handleF3() {
+    const chartElement = document.getElementById('chart');
 
+// Get the chart instance from the element reference
+const chartInstance = chartElement.chartInstance;
+
+// Get the current data state of the chart
+// const dataState = chartInstance.getData();
+
+
+  }
 
 
 
   render() {
 
+
+
     return <div style={{ maxWidth: '1100px', margin: 'auto' }}>
       <div className="row">
-        <div className="col s12 m9">
-          <div className="f3" id="chart" ref={this.contRef} style={{ position: 'relative' }}></div>
+        <div className="col s12 m9" ref={this.chartRef}>
+          <div className="f3" id="chart" ref={this.contRef} style={{ position: 'relative' }}>
+           
+          </div>
+         
         </div>
         <div className="col s12 m3">
           <div id="edit_cont" className="card p5"></div>
         </div>
       </div>
       <div id="form_data" className="modal">
-
+     
       </div>
+      <button onClick={this.handleF3}>get data</button>
+      
     </div>
   }
 }

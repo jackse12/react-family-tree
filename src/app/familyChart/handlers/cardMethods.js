@@ -18,6 +18,8 @@ export function cardEdit(store, {card, d, cardEditForm}) {
         deletePerson(datum, store.getData())
       }
       store.update.tree()
+
+      console.log("store.getData()")
     }
   cardEditForm({datum, postSubmit, store})
 }

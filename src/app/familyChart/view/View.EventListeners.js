@@ -1,4 +1,5 @@
 export default function ViewAddEventListeners(store) {
+  console.log("store HHAHA")
   store.state.cont.querySelector(".main_svg").addEventListener("click", e => {
     const node = e.target
     const listeners = [

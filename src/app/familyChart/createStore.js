@@ -21,6 +21,8 @@ export default function createStore(initial_state) {
 
 
   function calcTree() {
+    console.log(state.data)
+
     return CalculateTree({
       data_stash: state.data, main_id: state.main_id,
       node_separation: state.node_separation, level_separation: state.level_separation
