@@ -5,7 +5,7 @@ import dataJson from '../../data.json';
 
 const FamilyComp = () => {
   return (
-    <div><FamilyChart data={dataJson}/></div>
+    <FamilyChart data={dataJson}/>
   )
 }
 

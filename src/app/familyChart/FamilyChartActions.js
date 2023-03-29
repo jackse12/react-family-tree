@@ -8,6 +8,7 @@ import dataJson from './data.json';
 import * as d3 from "d3";
 
 import createStore from "./createStore";
+import d3AnimationView from "./view/View.d3Animation";
 
 
 
@@ -31,7 +32,7 @@ export default class FamilyTree extends React.Component {
     let dataTree = dataJson
     let localTree = localStorage.getItem('treeData')
     if (localTree === null) {
-      
+
       console.log("NOt retain")
       localStorage.setItem('treeData', JSON.stringify(dataJson));
     } else {
@@ -72,7 +73,8 @@ export default class FamilyTree extends React.Component {
         custom_elements: [{ el: customAddBtn(card_dim), lis: customAddBtnListener, query: ".customAddBtn" }],
         card_dim
       }),
-        view = f3.d3AnimationView({
+        view = d3AnimationView({
+          // view = f3.d3AnimationView({
           store,
           cont: document.querySelector("#chart"),
           card_edit
@@ -186,24 +188,25 @@ export default class FamilyTree extends React.Component {
 
 
 
-    return <div style={{ maxWidth: '1100px', margin: 'auto' }}>
-      <div className="row">
-        <div className="col s12 m9" ref={this.chartRef}>
+    return (
+      <div style={{ display: 'flex', justifyContent: 'flex-start', maxWidth: '100%', margin: 'auto' }}>
+
+        <div className="row">
+          {/* <div className="col s12 m9" ref={this.chartRef}> */}
           <div className="f3" id="chart" ref={this.contRef} style={{ position: 'relative' }}>
-
           </div>
+          {/* </div> */}
 
         </div>
-        <div className="col s12 m3">
-          <div id="edit_cont" className="card p5"></div>
+        <div id="form-data" className="modal">
         </div>
-      </div>
-      <div id="form_data" className="modal">
-
-      </div>
-    
-
-    </div>
+        {/* <div class="title-container"> */}
+          <div class="title-app" >
+          {/* <div class="title_app" style={{ position: "absolute", zIndex: 1000, color: "white", top: "10px" }}> */}
+            <b> RAMIRO FAMILY TREE</b>
+          </div>
+        {/* </div> */}
+      </div>)
   }
 }
 
