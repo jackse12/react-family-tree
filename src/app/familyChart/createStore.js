@@ -1,7 +1,7 @@
 import CalculateTree from "./CalculateTree/CalculateTree.js"
 import {createTreeDataWithMainNode} from "./handlers/newPerson.js"
 import dataJson from './data.json';
-const fs = require('fs');
+
 
 export default function createStore(initial_state) {
   let onUpdate;
